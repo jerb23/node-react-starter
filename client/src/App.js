@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// /client/src/App.js
+
+import React, { useState, useEffect } from "react";
+import Product from "./Components/Product";
+
+// SERVICES
+import productService from "./services/productServices";
 
 function App() {
+  const [products, setproducts] = useState(null);
+
+  useEffect(() => {
+    if (!products) {
+      getProducts();
+    }
+  });
+
+  const HandleProducts = e => {
+    if (products) {
+      return <Product products={products}></Product>;
+    } else {
+      return <p>No data founded</p>;
+    }
+  };
+
+  const getProducts = async () => {
+    let res = await productService.getAll();
+    setproducts(res);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <HandleProducts></HandleProducts>
   );
 }
 

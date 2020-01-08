@@ -1,3 +1,5 @@
+'use strict'
+
 // /routes/productRoute.js
 const mongoose = require('mongoose');
 const Product = mongoose.model('products');
